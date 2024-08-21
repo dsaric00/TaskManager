@@ -2,11 +2,12 @@ package com.example.taskmanager.services;
 
 import com.example.taskmanager.models.User;
 import com.example.taskmanager.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
-
+    @Autowired
     UserRepository userRepository;
 
     @Override
