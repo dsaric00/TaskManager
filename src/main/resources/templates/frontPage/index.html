@@ -4,12 +4,67 @@
     <meta charset="UTF-8">
     <title>Index</title>
 </head>
-<style>
-    .font{
-        font-size: 100%;
-    }
-</style>
+
 <body>
-<h1 class="font">404</h1>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+            <div class="position-sticky">
+                <button id="sidebarToggle" class="btn btn-primary d-md-none" type="button">
+                    Toggle Sidebar
+                </button>
+                <div id="sidebarContent">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Task</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/taskList.html">Task List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Acticity</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Option 3</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <!-- Top Bar -->
+            <header class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Tasks</h1>
+                <button id="sidebarToggleDesktop" class="btn btn-secondary d-none d-md-block" type="button">
+                    Toggle Sidebar
+                </button>
+            </header>
+
+            <!-- Task List -->
+            <section id="tasks">
+                <h2>Task List</h2>
+                <ul id="task-list" class="list-group">
+                    <!-- Thymeleaf Loop to Display Tasks -->
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <span th:text="${task.id}"></span>
+                            <span th:text="${task.name}"></span>
+                            <span th:text="${task.status}"></span>
+                        </div>
+                        <div>
+                            <a href="#" th:href="@{/tasks/edit/{id}(id=${task.id})}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="#" th:href="@{/tasks/delete/{id}(id=${task.id})}" class="btn btn-danger btn-sm">Delete</a>
+                        </div>
+                    </li>
+                </ul>
+                <button class="btn btn-primary mt-3" data-toggle="modal" data-target="#addTaskModal">Add Task</button>
+            </section>
+        </main>
+    </div>
+</div>
 </body>
 </html>
