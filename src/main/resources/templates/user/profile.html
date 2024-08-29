@@ -71,18 +71,18 @@
             </div>
             <div class="col-md-8">
                 <!-- Prikaz podataka i obrazac za ažuriranje -->
-                <form action="#" th:action="@{/updateProfile}" method="post">
+                <form action="#" th:action="@{/user/profile/update}" method="post">
                     <div class="mb-3">
                         <label for="name" class="form-label">Ime</label>
-                        <input type="text" class="form-control" id="name" name="name" value="John" required>
+                        <input type="text" class="form-control" id="name" name="name" th:value="${user.name}" required>
                     </div>
                     <div class="mb-3">
                         <label for="surname" class="form-label">Prezime</label>
-                        <input type="text" class="form-control" id="surname" name="surname" value="Doe" required>
+                        <input type="text" class="form-control" id="surname" name="surname" th:value="${user.surname}" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" value="john.doe@example.com" required>
+                        <input type="email" class="form-control" id="email" name="email" th:value="${user.email}" required>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Nova Lozinka</label>
@@ -94,6 +94,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Spremi Promjene</button>
                 </form>
+
             </div>
         </div>
     </div>

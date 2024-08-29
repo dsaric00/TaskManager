@@ -4,15 +4,18 @@ import com.example.taskmanager.models.Task;
 import com.example.taskmanager.models.User;
 import com.example.taskmanager.models.UserDetails;
 import com.example.taskmanager.repositories.TaskRepository;
+import com.example.taskmanager.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -53,6 +56,28 @@ public class UserController {
         model.addAttribute("tasks", tasks);
         return  "user/tasklist";
     }
+
+    //Da korisnik može mjenajti podatke
+
+    @Autowired
+    private UserService userService;
+    @PostMapping("/profile")
+    public String showProfil(Model model, String username){
+        User user = userService.getCurrentUser(username);
+        model.addAttribute("user",user);
+        return "profile";
+    }
+
+    @PostMapping("/profile/update")
+    public String updateProfile(@ModelAttribute("user") User user, @RequestParam("password") String password, @RequestParam("confirmPassword") String confirmPassword) {
+        if (!password.isEmpty() && password.equals(confirmPassword)) {
+            user.setLozinka(password); // Zamijenite metodom za hashiranje lozinke ako je potrebno
+        }
+        userService.updateUser(user);
+        return "redirect:/user/profile";
+    }
+
+
 
 
 
