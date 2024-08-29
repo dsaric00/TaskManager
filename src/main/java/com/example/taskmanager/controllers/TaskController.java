@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,10 +23,10 @@ public class TaskController {
         return "task-list";
     }
 
-    @PostMapping("/add")
-    public String addTask(Task task) {
+    @PostMapping("/task/add")
+    public String addTask(@ModelAttribute Task task) {
         taskRepository.save(task);
-        return "redirect:/tasks";
+        return "redirect:/user/tasklist";
     }
 
     // Ovdje bi dodao metode za editovanje i brisanje

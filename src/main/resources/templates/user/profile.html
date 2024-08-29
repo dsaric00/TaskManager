@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="hr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <!-- Sidebar Toggle Button -->
+        <button class="btn btn-primary me-2" onclick="toggleSidebar()"> ☰</button>
+
+        <!-- Page Title -->
+        <div class="navbar-brand mx-auto">
+            <span id="pageTitle" th:text="${pageTitle}">Profile</span> <!-- Dinamički naziv stranice -->
+        </div>
+
+        <!-- Right Side of Navbar -->
+        <div class="d-flex">
+            <!-- Dark Mode Toggle Button -->
+            <button class="btn btn-outline-secondary me-2" id="darkModeToggleBtn">
+                🌙
+            </button>
+
+            <!-- Notification Icon -->
+            <button class="btn btn-outline-secondary me-2" id="notificationBtn">
+                🔔
+            </button>
+
+            <!-- User Icon -->
+            <button class="btn btn-outline-secondary" id="userIconBtn">
+                <img src="/images/default-profile.jpg" alt="User" class="rounded-circle" style="width: 40px; height: 40px;">
+            </button>
+        </div>
+    </div>
+</nav>
+
+<div id="sidebar" class="bg-dark text-white p-3">
+    <button id="closeSidebarBtn" class="btn btn-primary" onclick="closeSidebar()"> ☰</button>
+    <h4 class="text-center">Menu</h4>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link text-white" th:href="@{/user/profile}">Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" th:href="@{/user/dashboard}">Dashboard</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" th:href="@{/user/task}">Add Task</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" th:href="@{/user/tasklist}">Task List</a>
+        </li>
+    </ul>
+</div>
+
+<div id="content">
+    <div class="container mt-5">
+        <h1 class="mb-4">Moj Profil</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <!-- Prikaz profilne slike -->
+                <div class="text-center">
+                    <img src="/images/default-profile.jpg" alt="Profilna Slika" class="img-fluid rounded-circle" id="profilePicture">
+                    <input type="file" class="form-control mt-2" id="uploadProfilePicture" accept="image/*">
+                    <button id="save-changes">Save Changes</button>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <!-- Prikaz podataka i obrazac za ažuriranje -->
+                <form action="#" th:action="@{/updateProfile}" method="post">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Ime</label>
+                        <input type="text" class="form-control" id="name" name="name" value="John" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="surname" class="form-label">Prezime</label>
+                        <input type="text" class="form-control" id="surname" name="surname" value="Doe" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="john.doe@example.com" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Nova Lozinka</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Potvrdi Lozinku</label>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Spremi Promjene</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("active");
+    }
+    function closeSidebar() {
+        document.getElementById("sidebar").classList.remove("active");
+    }
+</script>
+</body>
+</html>

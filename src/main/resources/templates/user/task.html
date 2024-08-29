@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Task</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <!-- Sidebar Toggle Button -->
+        <button class="btn btn-primary me-2" onclick="openSidebar()"> ☰</button>
+
+        <!-- Page Title -->
+        <div class="navbar-brand mx-auto">
+            <span id="pageTitle">Add Task</span> <!-- Ovdje će se dinamički mijenjati naziv stranice -->
+        </div>
+
+        <!-- Right Side of Navbar -->
+        <div class="d-flex">
+            <!-- Dark Mode Toggle Button -->
+            <button class="btn btn-outline-secondary me-2" id="darkModeToggleBtn">
+                🌙
+            </button>
+
+            <!-- Notification Icon -->
+            <button class="btn btn-outline-secondary me-2" id="notificationBtn">
+                🔔
+            </button>
+
+            <!-- User Icon -->
+            <button class="btn btn-outline-secondary" id="userIconBtn">
+                <img src="default-profile.jpg" alt="User" class="rounded-circle" style="width: 40px; height: 40px;">
+            </button>
+        </div>
+    </div>
+
+</nav>
+
+<!-- Sidebar -->
+<div id="sidebar" class="bg-dark text-white p-3">
+    <button id="closeSidebarBtn" class="btn btn-primary" onclick="closeSidebar()"> ☰</button>
+    <h4 class="text-center">Menu</h4>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link text-white" th:href="@{/user/profile}">Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" th:href="@{/user/dashboard}">Dashboard</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" th:href="@{user/task}">Add Task</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" th:href="@{/user/tasklist}">Task List</a>
+        </li>
+    </ul>
+
+</div>
+
+<!-- Content Area -->
+<div id="content" class="container mt-5">
+    <div class="container mt-5">
+        <form th:action="@{/user/task/add}" method="post">
+        <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="startDate" class="form-label">Start Date</label>
+                <input type="date" class="form-control" id="startDate" name="startDate" required>
+            </div>
+            <div class="mb-3">
+                <label for="endDate" class="form-label">End Date</label>
+                <input type="date" class="form-control" id="endDate" name="endDate" required>
+            </div>
+            <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-select" id="status" name="status" required>
+                    <option value="STARTED">Started</option>
+                    <option value="COMPLETED">Completed</option>
+                    <option value="SUSPENDED">Suspended</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Task</button>
+        </form>
+    </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function openSidebar() {
+            document.getElementById("sidebar").classList.toggle("active");
+        }
+        function closeSidebar() {
+            document.getElementById("sidebar").classList.toggle("active");
+        }
+    </script>
+
+</body>
+</html>
