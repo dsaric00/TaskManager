@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import com.example.taskmanager.services.UserDetailsService;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -59,6 +60,11 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/").permitAll();
         http.authenticationProvider(authenticationProvider());
         http.headers().frameOptions().sameOrigin();
+
         return http.build();
+    }
+    @Bean
+    WebSecurityCustomizer ignoringCustomizer() {
+        return (web) -> web.ignoring().requestMatchers("/resources/**", "/Static/**", "/images/**");
     }
 }

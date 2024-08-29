@@ -1,5 +1,6 @@
 package com.example.taskmanager.controllers;
 
+import com.example.taskmanager.models.Task;
 import com.example.taskmanager.models.User;
 import com.example.taskmanager.models.UserDetails;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,10 +17,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @PreAuthorize("hasAnyAuthority('USER')")
 public class UserController {
     @GetMapping
+    public String userIndex(Model model){
+        return "user/dashboard";
+    }
+    @GetMapping("/dashboard")
     public String userDashboard(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails =(UserDetails) authentication.getPrincipal();
         User currentUser = userDetails.getUser();
+        Task task = new Task();
+        task.setUser(currentUser);
+        model.addAttribute("task", task);
         return "user/dashboard";
     }
 }
