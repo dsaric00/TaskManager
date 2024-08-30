@@ -2,8 +2,8 @@ package com.example.taskmanager.controllers;
 
 import com.example.taskmanager.models.Task;
 import com.example.taskmanager.repositories.TaskRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,10 +21,6 @@ public class TaskController {
 
     @GetMapping("/task")
     public String getTaskPage(Model model){
-        return "user/task";
-    }
-    @GetMapping("/user/task")
-    public String showTaskForm(Model model) {
         model.addAttribute("task", new Task());
         return "user/task";
     }
@@ -37,11 +33,10 @@ public class TaskController {
     @PostMapping("/task/add")
     public String addTask(@ModelAttribute("task") Task task, BindingResult result) {
         if (result.hasErrors()) {
-            // Ako ima grešaka, vrati se na obrazac za dodavanje zadatka
             return "user/task";
         }
-        taskRepository.save(task); // Spremi zadatak u bazu podataka
-        return "redirect:/task/tasklist"; // Preusmjeri korisnika na popis zadataka
+        taskRepository.save(task);
+        return "redirect:/task/tasklist";
     }
 
 
