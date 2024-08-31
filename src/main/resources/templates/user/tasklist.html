@@ -74,13 +74,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="task : ${tasks}">
-            <td th:text="${task.id}"></td>
-            <td th:text="${task.title}"></td>
-            <td th:text="${task.description}"></td>
-            <td th:text="${task.startDate}"></td>
-            <td th:text="${task.endDate}"></td>
-            <td th:text="${task.status}"></td>
+        <tr th:each="task : ${task}">
+            <td th:text="${id}"></td>
+            <td th:text="${title}"></td>
+            <td th:text="${description}"></td>
+            <td th:text="${startDate}"></td>
+            <td th:text="${endDate}"></td>
+            <td th:text="${status}"></td>
             <td>
                 <!-- Links for editing and deleting tasks -->
                 <a th:href="@{/tasks/edit/{id}(id=${task.id})}" class="btn btn-sm btn-warning">Edit</a>
