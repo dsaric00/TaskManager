@@ -5,6 +5,7 @@ import com.example.taskmanager.models.User;
 import com.example.taskmanager.models.UserDetails;
 import com.example.taskmanager.repositories.TaskRepository;
 import com.example.taskmanager.repositories.UserRepository;
+import com.example.taskmanager.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -23,6 +24,9 @@ import java.security.Principal;
 @RequestMapping("/user")
 @PreAuthorize("hasAnyAuthority('USER')")
 public class UserController {
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     UserRepository userRepository;
@@ -49,11 +53,11 @@ public class UserController {
     }
 
     @PostMapping("profile/update")
-    public String updateProfile(@ModelAttribute("user") User user, BindingResult result){
-        if (result.hasErrors()){
-            return "user/profile";
+    public String updateProfile(@ModelAttribute User user){
+        if (user.getId() == null){
+            throw new IllegalArgumentException("The given id must not be null");
         }
-        userRepository.save(user);
+        userService.updateUser(user);
         return "redirect:/user/profile";
     }
 }

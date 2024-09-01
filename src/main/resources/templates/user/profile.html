@@ -72,6 +72,7 @@
       <div class="col-md-8">
         <!-- Prikaz podataka i obrazac za ažuriranje -->
         <form th:action="@{/user/profile/update}" th:object="${user}" method="post">
+          <input type="hidden" th:field="*{id}" />
           <div class="mb-3">
             <label for="name" class="form-label">Ime</label>
             <input type="text" class="form-control" id="name" th:field="*{ime}" required>
