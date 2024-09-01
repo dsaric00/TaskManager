@@ -33,8 +33,12 @@ public class Task {
     private Status status;
 
     public enum Status{
-        STARTED, COMPLETED, SUSPENDED
+        STARTED,
+        SUSPENDED,
+        IN_PROGRESS,
+        COMPLETED
     }
+
 
     public Task(){}
 

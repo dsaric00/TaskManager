@@ -3,6 +3,7 @@ package com.example.taskmanager.services;
 import com.example.taskmanager.models.Task;
 import com.example.taskmanager.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,4 +26,14 @@ public class TaskService {
     public  Task createTask(Task task){
         return taskRepository.save(task);
     }
+
+    public List<Task> getTasksSortedByStatus() {
+        return taskRepository.findAll(Sort.by("status").ascending());
+    }
+
+    public Task getTaskById(Long id) {
+        return taskRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid task Id:" + id));
+    }
+
+
 }

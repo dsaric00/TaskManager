@@ -46,7 +46,7 @@ public class SecurityConfig {
                 .requestMatchers("auth/register/**","/auth/register","/task/add")
                 .permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                .requestMatchers("/user/**").hasAuthority("USER")
+                .requestMatchers("/user/**", "/task/tasks/updateStatus").hasAuthority("USER")
                 .anyRequest()
                 .authenticated()
                 .and()
