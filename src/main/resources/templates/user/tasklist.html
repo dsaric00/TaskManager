@@ -99,7 +99,9 @@
             </td>
             <td>
 
-                <a th:href="@{/tasks/edit/{id}(id=${task.id})}" class="btn btn-sm btn-warning">Edit</a>
+
+
+                <a th:href="@{/task/edit/{taskId}(taskId=${task.id})}" class="btn btn-warning">Edit</a>
 
                 <form th:action="@{/task/delete/{taskId}(taskId=${task.id})}" method="post">
                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>

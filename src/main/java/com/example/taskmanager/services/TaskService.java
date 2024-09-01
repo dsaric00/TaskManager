@@ -49,4 +49,15 @@ public class TaskService {
         return tasks;
    }
 
+   public void updateTask(Task updateTask){
+        Task existingTask = taskRepository.findById(updateTask.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid task ID" + updateTask.getId()));
+        existingTask.setTitle(updateTask.getTitle());
+        existingTask.setDescription(updateTask.getDescription());
+        existingTask.setStartDate(updateTask.getStartDate());
+        existingTask.setEndDate(updateTask.getEndDate());
+        existingTask.setStatus(updateTask.getStatus());
+        taskRepository.save(existingTask);
+    }
+
 }

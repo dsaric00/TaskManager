@@ -65,6 +65,28 @@ public class TaskController {
         return "redirect:/task/tasklist";
     }
 
+    @GetMapping("/edit/{taskId}")
+    public String showEditTaskForm(@PathVariable Long taskId, Model model) {
+        Task task = taskService.getTaskById(taskId);
+        if (task == null) {
+            // Ako zadatak ne postoji, baci iznimku ili preusmjeri na stranicu s greškom
+            throw new RuntimeException("Task not found");
+        }
+        model.addAttribute("task", task);
+        return "user/editTask";
+    }
+
+
+    @PostMapping("/edit")
+    public String editTask(@ModelAttribute Task task) {
+        if (task.getId() == null) {
+            throw new IllegalArgumentException("The given id must not be null");
+        }
+        taskService.updateTask(task);
+        return "redirect:/task/tasklist";
+    }
+
+
 
     @PostMapping("/delete/{taskId}")
     public String deleteTask(@PathVariable Long taskId) {
