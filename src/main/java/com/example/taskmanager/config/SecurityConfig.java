@@ -41,12 +41,12 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
         http    .authorizeHttpRequests()
-                .requestMatchers("auth/register/**","/auth/register","/task/add")
+                .requestMatchers("/","/auth/register/**","/auth/register", "/task/add")
                 .permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                .requestMatchers("/user/**", "/task/tasks/updateStatus").hasAuthority("USER")
+                .requestMatchers("/user/**", "/task/**").hasAuthority("USER")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -57,9 +57,17 @@ public class SecurityConfig {
                 .permitAll()
                 .and()
                 .logout()
+                //.logoutUrl("/auth/login")
                 .logoutSuccessUrl("/").permitAll();
+
         http.authenticationProvider(authenticationProvider());
         http.headers().frameOptions().sameOrigin();
+
         return http.build();
+
+    }
+    @Bean
+    WebSecurityCustomizer ignoringCustomizer() {
+        return (web) -> web.ignoring().requestMatchers("/resources/**", "/static/**", "/images/**");
     }
 }

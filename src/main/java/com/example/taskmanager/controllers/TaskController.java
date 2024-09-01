@@ -33,8 +33,8 @@ public class TaskController {
 
     @GetMapping("/tasklist")
     public String getTaskList(Model model) {
-        List<Task> tasks = taskService.getTasksSortedByStatus(); // Dohvati sve zadatke iz tablice 'task'
-        model.addAttribute("tasks", tasks); // Dodaj ih u model pod imenom 'tasks'
+        List<Task> tasks = taskService.getTaskSortedByStatusForCurrentUser(); // Dohvati sve zadatke iz tablice 'task'
+        model.addAttribute("tasks", tasks);
         return "user/tasklist"; // Vrati se na tasklist.html
     }
 
@@ -45,7 +45,7 @@ public class TaskController {
         return "user/task";
     }
 
-    // Ova metoda sada odgovara URL-u kojeg koristiš u formi
+
     @PostMapping("/add")
     public String addTask(@ModelAttribute("task") Task task, Principal principal) {
         User user = userService.findByEmail(principal.getName());
@@ -66,6 +66,11 @@ public class TaskController {
     }
 
 
+    @PostMapping("/delete/{taskId}")
+    public String deleteTask(@PathVariable Long taskId) {
+        taskRepository.deleteById(taskId);
+        return "redirect:/task/tasklist";
+    }
 
 
 

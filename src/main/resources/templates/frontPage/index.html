@@ -1,70 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            background-image: url('/images/bearded-male-organizing-his-tasks-using-sticky-notes.jpg');
+            background-size: cover;
+        }
+        .hero-section h1 {
+            color: #262626;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .hero-section p {
+            color: #262626;
+            font-size: 1.25rem;
+        }
+        .btn-get-started {
+            margin-top: 30px;
+            padding: 15px 30px;
+            font-size: 1.25rem;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
-            <div class="position-sticky">
-                <button id="sidebarToggle" class="btn btn-primary d-md-none" type="button">
-                    Toggle Sidebar
-                </button>
-                <div id="sidebarContent">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Task</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/taskList.html">Task List</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Acticity</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Option 3</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <!-- Main Content -->
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <!-- Top Bar -->
-            <header class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Tasks</h1>
-                <button id="sidebarToggleDesktop" class="btn btn-secondary d-none d-md-block" type="button">
-                    Toggle Sidebar
-                </button>
-            </header>
-
-            <!-- Task List -->
-            <section id="tasks">
-                <h2>Task List</h2>
-                <ul id="task-list" class="list-group">
-                    <!-- Thymeleaf Loop to Display Tasks -->
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <span th:text="${task.id}"></span>
-                            <span th:text="${task.name}"></span>
-                            <span th:text="${task.status}"></span>
-                        </div>
-                        <div>
-                            <a href="#" th:href="@{/tasks/edit/{id}(id=${task.id})}" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="#" th:href="@{/tasks/delete/{id}(id=${task.id})}" class="btn btn-danger btn-sm">Delete</a>
-                        </div>
-                    </li>
-                </ul>
-                <button class="btn btn-primary mt-3" data-toggle="modal" data-target="#addTaskModal">Add Task</button>
-            </section>
-        </main>
-    </div>
+<div class="hero-section">
+    <h1>Welcome to Task Manager</h1>
+    <p>Your personal task management solution.</p>
+    <p>Turning Your Task Problems into Seamless Solutions</p>
+    <a href="/auth/login" class="btn btn-primary btn-get-started">Get Started</a>
 </div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
